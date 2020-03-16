@@ -16,6 +16,7 @@ export const Focus = React.forwardRef((props, ref) => <Box ref={ref} textStyle='
 export const Select = ({
   value,
   filter,
+  setFilter,
   error,
   disabled,
   options = [],
@@ -38,6 +39,7 @@ export const Select = ({
   const internalChanged = ([value]) => {
     setInternalValue(value);
     onChange(value);
+    setFilter('');
   };
 
   const mapOptions = ([value, label]) => {
@@ -102,5 +104,5 @@ export const SelectFiltered = ({
 }) => {
   const [filter, setFilter] = useState('');
   const anchor = useCallback(React.forwardRef(({ children, filter, ...props }, ref) => <Margins inline='x4'><Flex.Item grow={1}><InputBox.Input className='rcx-select__focus' ref={ref} placeholder={placeholder} value={filter} onChange={() => {}} onInput={(e) => setFilter(e.currentTarget.value)} {...props} mod-undecorated={true}/></Flex.Item></Margins>), []);
-  return <Select filter={filter} options={options} {...props} anchor={anchor}/>;
+  return <Select setFilter={setFilter} filter={filter} options={options} {...props} anchor={anchor}/>;
 };
